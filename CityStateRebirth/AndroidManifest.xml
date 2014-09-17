@@ -1,0 +1,35 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.citystaterebirth"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Background"
+        android:name ="com.android.citystaterebirth.structure.CityApp"
+        android:screenOrientation="portrait" >
+        <activity
+         android:name="com.android.citystaterebirth.activities.First_screen"
+         android:label="City State" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.Players_number_choose"></activity>
+        <activity android:name=".activities.Game_instance_initiation"></activity>
+        <activity android:name=".activities.gameCircle.Game_circle_begining"></activity>
+        <activity android:name=".activities.gameCircle.Player_turn_action_choosing"></activity>
+        <activity android:name=".activities.gameCircle.Player_turn_constracting"></activity>
+        <activity android:name=".activities.gameCircle.Player_turn_invite"></activity>
+        <activity android:name=".activities.gameCircle.Role_choosing"></activity>
+        <activity android:name=".activities.support.Stats"></activity>
+    </application>
+
+</manifest>

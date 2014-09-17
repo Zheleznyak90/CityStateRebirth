@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">City State</string>
+    <string name="action_settings">Settings</string>
+    <string name="btnNewGame">Новая игра</string>
+    <string name="btnSettings">Настройки</string>
+   
+    <string name="pName">Имя игрока</string>
+    <string name="builded">Зданий</string>       
+    <string name="plans">Чертежи</string>       
+    <string name="money">Денег</string>
+    <string name="points">Очков</string>
+    <string name="btnBack">Назад</string>
+    
+    <string name="takingTwoThousands">Беру 2 тысячи</string> 
+    <string name="takingTwoPlans">Беру 2 чертежа</string>
+    
+    <string name="moneyAmount">Тысяч на счету: </string>
+    <string name="constructed">Построено</string>
+    <string name="btnSpecial">Спец. возможность</string>
+    <string name="btnOtherPlayers">Другие игроки</string>
+	<string name="btnTurnEnd">Конец хода</string>
+    
+    <string name="tmp">Заглушка</string>
+    
+    <string name="strPlans">Чертежей: </string>       
+    
+    
+</resources>
