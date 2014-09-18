@@ -19,36 +19,23 @@ import com.android.citystaterebirth.structure.Player;
 import com.android.citystaterebirth.structure.Role;
 
 public class Game_circle_begining extends Activity{
-	  ArrayList<Role> gameRoleDeckTurn;
-	  ArrayList<Role> openedRoleTurn;
+	  private ArrayList<Role> gameRoleDeckTurn;
+	  private ArrayList<Role> openedRoleTurn;
 	  
 	  @Override
 	  protected void onCreate(Bundle savedInstanceState) {
 		   
 		  super.onCreate(savedInstanceState);
 		  
-		  LinearLayout linL = new LinearLayout(this);
+		  final LinearLayout linL = new LinearLayout(this);
 		  linL.setOrientation(LinearLayout.VERTICAL);
 		  LayoutParams linLParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		  setContentView(linL,linLParams);
-		  
-		  //Intent intent = getIntent();
+		  //linL.setId(2121212121);
 		  
 		  ArrayList<Role> gameRoleDeck = ((CityApp)getApplication()).getRoleDeck();
 		  ArrayList<Player> players = ((CityApp)getApplication()).getPlayers();
 		  
-		  /*gameFunction = new Game_func(this);
-		  
-		  Collections.sort(players, new PlayerCompareId());
-		  int crownedPlayerId = gameFunction.getCrownedPlayer(players);
-		  
-		  tmpPlayerList = new ArrayList<Player>(players.size());
-		  for(int i = 0; i<players.size();i++){
-			  if(players.size()-(crownedPlayerId+i)>0)
-				  tmpPlayerList.add(players.get(crownedPlayerId+i));
-			  else 
-				  tmpPlayerList.add(players.get(Math.abs(players.size()-(crownedPlayerId+i))));
-		  }*/
 		  ((CityApp)getApplication()).newTurnRefresh();
 		  
 		  gameRoleDeckTurn = Game_func.getSingleGF().CreateRoleDeckTurn(gameRoleDeck, players.size());
@@ -63,8 +50,6 @@ public class Game_circle_begining extends Activity{
 		  final Intent intent_next = new Intent(Game_circle_begining.this, Role_choosing.class);
 		  
 		  ((CityApp)getApplication()).setOpenedRoles(openedRoleTurn);
-		  //((CityApp)getApplication()).setPlayers(tmpPlayerList);
-		  
 		  intent_next.putExtra("gameRoleDeckTurn", gameRoleDeckTurn);
 		  
 		  LinearLayout.LayoutParams lpMatchContent = new LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -79,12 +64,15 @@ public class Game_circle_begining extends Activity{
 				
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
-					if (event.getAction()==MotionEvent.ACTION_DOWN)
-						  startActivity(intent_next);
-					  finish();
-					  return true;
+					if (event.getAction()==MotionEvent.ACTION_DOWN){
+						startActivity(intent_next);
+					}
+					finish();
+					return true;
 				}
 		  });
 	  }
+	  
+
 }
 

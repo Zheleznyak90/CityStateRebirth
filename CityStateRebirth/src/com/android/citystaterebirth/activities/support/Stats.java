@@ -18,10 +18,10 @@ import com.android.citystaterebirth.structure.CityApp;
 import com.android.citystaterebirth.structure.Player;
 
 public class Stats extends Activity {
-	ArrayList<Player> players;
-	TableLayout tableL;
-	Button btnBack;
-	Button btnNewGame;
+	private ArrayList<Player> players;
+	private TableLayout tableL;
+	private Button btnBack;
+	private Button btnNewGame;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

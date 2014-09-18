@@ -2,7 +2,6 @@ package com.android.citystaterebirth.activities.gameCircle;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Logger;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,20 +18,20 @@ import com.android.citystaterebirth.structure.Player;
 import com.android.citystaterebirth.structure.comparators.PlayerComparePoints;
 
 public class Player_turn_constracting extends Activity {
-	Logger log = Logger.getLogger(Game_circle_begining.class.getName());
+	//Logger log = Logger.getLogger(Game_circle_begining.class.getName());
 	
-	TextView cointsTV;
-	Button observeBtn;
-	Button nextTurnBtn;
-	Button plans;
-	Button alreadyBuilt;
-	Button roleSpecial;
+	private TextView cointsTV;
+	private Button observeBtn;
+	private Button nextTurnBtn;
+	private Button plans;
+	private Button alreadyBuilt;
+	private Button roleSpecial;
 	
-	ArrayList<Player> players;
-	boolean isLastTurn;
-	int iterator_turn;//TODO refactor to isLast in players coll
+	private ArrayList<Player> players;
+	private boolean isLastTurn;
+	private int iterator_turn;//TODO refactor to isLast in players coll
 	//Role_special special;
-	Player currPlayer;
+	private Player currPlayer;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +114,7 @@ public class Player_turn_constracting extends Activity {
 									finalize();
 								} catch (Throwable e) {
 									e.printStackTrace();
-									log.info("exeption throwed");
+									//log.info("exeption throwed");
 								}
 								
 							}

@@ -1,9 +1,7 @@
 package com.android.citystaterebirth.activities.support;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
-
-import com.android.citystaterebirth.R;
-import com.android.citystaterebirth.functions.ListScrollGesture;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -16,10 +14,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.android.citystaterebirth.R;
+import com.android.citystaterebirth.activities.gameCircle.Role_choosing;
+import com.android.citystaterebirth.functions.ListScrollGesture;
 
 public class Card_gallery extends Fragment {
 	private String inpModifier;
-	private String[] inpIdArr;
+	//private String[] inpIdArr;
+	private ArrayList<String> inpIdsArr;
 	
 	private int ID_ARRAY_SIZE;
 	
@@ -33,14 +37,13 @@ public class Card_gallery extends Fragment {
 		fragmentView = inflater.inflate(R.layout.card_gallery, null);
 		cardShowdRL = (RelativeLayout) fragmentView.findViewById(R.id.cardShowFragmRL);
 		
-		
 		Bundle picIds = this.getArguments();
 		visibleImg = new LinkedList<ImageView>();
 		
 		if(picIds != null){
 			inpModifier = picIds.getString("Modifier");
-			inpIdArr = picIds.getStringArray("Ids");
-			ID_ARRAY_SIZE = inpIdArr.length; 
+			inpIdsArr = picIds.getStringArrayList("Ids");
+			ID_ARRAY_SIZE = inpIdsArr.size();
 			
 			fillList();
 			refreshDisplay(true);
@@ -69,7 +72,7 @@ public class Card_gallery extends Fragment {
 		int drawableRes;
 		
 		tempImage = new ImageView(_cont);
-		drawableRes = getResources().getIdentifier(inpModifier+inpIdArr[_currElem], "drawable", _cont.getPackageName());
+		drawableRes = getResources().getIdentifier(inpModifier+inpIdsArr.get(_currElem), "drawable", _cont.getPackageName());
 		
 		tmpDraw = getResources().getDrawable(drawableRes);
 		tempImage.setImageDrawable(tmpDraw);
@@ -136,7 +139,8 @@ public class Card_gallery extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				getFragmentManager().popBackStack();
-				//((Activity) getActivity()).onFragmentClose(currElem);
+				if(getActivity() instanceof Role_choosing)
+					((Role_choosing) getActivity()).onGalleryClose(currElem);
 			}
 		});
 		

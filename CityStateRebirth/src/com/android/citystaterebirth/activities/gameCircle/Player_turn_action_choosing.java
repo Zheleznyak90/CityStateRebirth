@@ -18,11 +18,11 @@ import com.android.citystaterebirth.structure.Player;
 
 public class Player_turn_action_choosing extends Activity {
 	
-	Button btnChooseGold;
-	Button btnChooseCards;
+	private Button btnChooseGold;
+	private Button btnChooseCards;
 	
-	TextView tvMoney;
-	TextView tvPlans;
+	private TextView tvMoney;
+	private TextView tvPlans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

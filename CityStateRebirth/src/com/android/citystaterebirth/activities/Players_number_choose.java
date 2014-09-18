@@ -8,15 +8,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.citystaterebirth.structure.CityApp;
 
 public class Players_number_choose extends Activity{
-	  EditText players_number;
-	  Button btn_pn_next;	
+	  //private EditText players_number;
+	  //private Button btn_pn_next;	
 	
 	  @Override
 	  protected void onCreate(Bundle savedInstanceState) {

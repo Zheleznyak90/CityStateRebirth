@@ -13,7 +13,7 @@ import com.android.citystaterebirth.functions.Game_func;
 
 public class First_screen extends Activity{
 
-	Button btnNewGame;
+	private Button btnNewGame;
 	//private Button btnSetting;
 
 	@Override

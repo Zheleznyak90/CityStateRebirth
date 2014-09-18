@@ -16,10 +16,10 @@ import com.android.citystaterebirth.structure.Role;
 public class Game_instance_initiation extends Activity {
 	//Logger log = Logger.getLogger(Game_circle_begining.class.getName());
 	  
-	ArrayList<Role> gameRoleDeck;
-	ArrayList<Building> gameBuildingDeck;
+	private ArrayList<Role> gameRoleDeck;
+	private ArrayList<Building> gameBuildingDeck;
 	  
-	ArrayList<Player> players;
+	private ArrayList<Player> players;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,5 @@ public class Game_instance_initiation extends Activity {
 		
 		startActivity(intent);
 		finish();
-
-
 	}
 }
