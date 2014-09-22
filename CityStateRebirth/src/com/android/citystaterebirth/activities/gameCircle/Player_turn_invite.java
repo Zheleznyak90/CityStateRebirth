@@ -1,11 +1,5 @@
 package com.android.citystaterebirth.activities.gameCircle;
 
-import java.util.logging.Logger;
-
-import com.android.citystaterebirth.functions.Game_func;
-import com.android.citystaterebirth.structure.Player;
-import com.android.citystaterebirth.structure.CityApp;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +10,10 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.android.citystaterebirth.functions.Game_func;
+import com.android.citystaterebirth.structure.CityApp;
+import com.android.citystaterebirth.structure.Player;
 
 public class Player_turn_invite extends Activity {
 	

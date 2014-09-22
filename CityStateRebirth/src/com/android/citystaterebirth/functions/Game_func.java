@@ -210,5 +210,17 @@ public class Game_func {
 		 ((CityApp)((Activity) _context).getApplication()).setPlayers(players);
 		 
 	 }
+	 
+	public <T> ArrayList<String> createImgArr(ArrayList<T> _inpObjArr) {
+		ArrayList<String> imgArr = new ArrayList<String>();
+		
+		for(Object iterRole:_inpObjArr){
+			if(iterRole instanceof Role)
+				imgArr.add(Integer.toString(((Role) iterRole).getId()));
+			else if(iterRole instanceof Building)
+				imgArr.add(((Building) iterRole).getId());
+		}
+		return imgArr;
+	}
 
 }

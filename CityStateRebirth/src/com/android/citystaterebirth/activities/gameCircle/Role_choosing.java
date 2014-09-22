@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.citystaterebirth.activities.support.Card_gallery;
+import com.android.citystaterebirth.functions.Game_func;
 import com.android.citystaterebirth.structure.CardShowing;
 import com.android.citystaterebirth.structure.CityApp;
 import com.android.citystaterebirth.structure.Player;
@@ -25,6 +26,7 @@ public class Role_choosing extends Activity implements CardShowing{
 	private ArrayList<Role> gameRoleDeckTurn;
 	private ArrayList<Player> players;
 	private int iterator_role_choose;
+	private LinearLayout linL;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -37,7 +39,7 @@ public class Role_choosing extends Activity implements CardShowing{
 		  gameRoleDeckTurn = intent.getParcelableArrayListExtra("gameRoleDeckTurn");
 		  iterator_role_choose = intent.getIntExtra("iterator_role_choose", 0)+1;
 		
-		  LinearLayout linL = new LinearLayout(this);
+		  linL = new LinearLayout(this);
 		  linL.setOrientation(LinearLayout.VERTICAL);
 		  LayoutParams linLParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		  setContentView(linL,linLParams);
@@ -61,32 +63,25 @@ public class Role_choosing extends Activity implements CardShowing{
 	      tv.setText(openedRoles);
 	      tv.setLayoutParams(lpMatchContent);
 	      linL.addView(tv);
-	      
-	      {
+
+	      cardShowFragmentAdd();
+		  //Game_func.getSingleGF().setViewRoleChoise(linL, players, gameRoleDeckTurn, iterator_role_choose, this);
+		
+	}
+	
+	private void cardShowFragmentAdd(){
 	      Fragment roleShow = new Card_gallery();
 	      FragmentTransaction fTrans = getFragmentManager().beginTransaction();
 			
 	      Bundle picIds = new Bundle();
 	      picIds.putString("Modifier", "role_");
-	      picIds.putStringArrayList("Ids", createRoleImgArr());
+	      picIds.putStringArrayList("Ids", Game_func.getSingleGF().createImgArr(gameRoleDeckTurn));
 	      roleShow.setArguments(picIds);
 			
 	      fTrans.add(linL.getId(), roleShow);
 	      fTrans.addToBackStack(null);
 	      fTrans.commit();
-	      }
-		  //Game_func.getSingleGF().setViewRoleChoise(linL, players, gameRoleDeckTurn, iterator_role_choose, this);
-		
 	}
-	
-	  private ArrayList<String> createRoleImgArr(){
-		  ArrayList<String> imgArr = new ArrayList<String>();
-		  for(Role iterRole:gameRoleDeckTurn){
-			 imgArr.add(Integer.toString(iterRole.getId()));
-			 //Toast.makeText(this, "size " + Integer.toString(iterRole.getId()), Toast.LENGTH_LONG).show();
-		  }
-		  return imgArr;
-	  }
 
 	@Override
 	public void onGalleryClose(int _elementId) {

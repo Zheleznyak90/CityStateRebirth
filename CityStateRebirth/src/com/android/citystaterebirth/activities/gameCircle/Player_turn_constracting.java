@@ -4,20 +4,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.citystaterebirth.R;
+import com.android.citystaterebirth.activities.support.Card_gallery;
 import com.android.citystaterebirth.activities.support.Stats;
+import com.android.citystaterebirth.functions.Game_func;
+import com.android.citystaterebirth.structure.Building;
+import com.android.citystaterebirth.structure.CardShowing;
 import com.android.citystaterebirth.structure.CityApp;
 import com.android.citystaterebirth.structure.Player;
 import com.android.citystaterebirth.structure.comparators.PlayerComparePoints;
 
-public class Player_turn_constracting extends Activity {
+public class Player_turn_constracting extends Activity implements CardShowing{
 	//Logger log = Logger.getLogger(Game_circle_begining.class.getName());
 	
 	private TextView cointsTV;
@@ -79,12 +87,14 @@ public class Player_turn_constracting extends Activity {
 						break;
 						
 					case R.id.btn_already_built:
+						cardShowFragmentAdd(currPlayer.getBuilded());
 						/*next_intent = next_intent_plans;
 						next_intent.putExtra("isBuidedList", true);
 						startActivity(next_intent);
 						*/
 						break;	
 					case R.id.btn_plans:
+						cardShowFragmentAdd(currPlayer.getBuildingCards());
 						/*
 						next_intent = next_intent_plans;
 						startActivity(next_intent);
@@ -116,7 +126,6 @@ public class Player_turn_constracting extends Activity {
 									e.printStackTrace();
 									//log.info("exeption throwed");
 								}
-								
 							}
 						}
 						startActivity(next_intent);
@@ -140,6 +149,32 @@ public class Player_turn_constracting extends Activity {
 		cointsTV.setText(String.valueOf(((CityApp)getApplication()).getCurrPlayer().getGoldAmount()));
 
 		super.onResume();
+	}
+	
+	private void cardShowFragmentAdd(ArrayList<Building> _buildDeck){
+		LinearLayout linL = new LinearLayout(this);
+		linL.setOrientation(LinearLayout.VERTICAL);
+		LayoutParams linLParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+		setContentView(linL,linLParams);
+		linL.setId(2121212121);
+		
+	    Fragment roleShow = new Card_gallery();
+	    FragmentTransaction fTrans = getFragmentManager().beginTransaction();
+			
+	    Bundle picIds = new Bundle();
+	    picIds.putString("Modifier", "building_");
+	    picIds.putStringArrayList("Ids", Game_func.getSingleGF().createImgArr(_buildDeck));
+	    roleShow.setArguments(picIds);
+			
+	    fTrans.add(linL.getId(), roleShow);
+	    fTrans.addToBackStack(null);
+	      fTrans.commit();
+	}
+
+	@Override
+	public void onGalleryClose(int _elementId) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

@@ -14,9 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.android.citystaterebirth.R;
+import com.android.citystaterebirth.activities.Players_number_choose;
+import com.android.citystaterebirth.activities.gameCircle.Player_turn_constracting;
 import com.android.citystaterebirth.activities.gameCircle.Role_choosing;
 import com.android.citystaterebirth.functions.ListScrollGesture;
 
@@ -141,6 +142,8 @@ public class Card_gallery extends Fragment {
 				getFragmentManager().popBackStack();
 				if(getActivity() instanceof Role_choosing)
 					((Role_choosing) getActivity()).onGalleryClose(currElem);
+				if(getActivity() instanceof Player_turn_constracting)
+					((Player_turn_constracting) getActivity()).onGalleryClose(currElem);
 			}
 		});
 		
