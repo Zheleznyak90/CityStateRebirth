@@ -14,17 +14,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.android.citystaterebirth.R;
-import com.android.citystaterebirth.activities.Players_number_choose;
 import com.android.citystaterebirth.activities.gameCircle.Player_turn_constracting;
 import com.android.citystaterebirth.activities.gameCircle.Role_choosing;
 import com.android.citystaterebirth.functions.ListScrollGesture;
 
 public class Card_gallery extends Fragment {
 	private String inpModifier;
-	//private String[] inpIdArr;
 	private ArrayList<String> inpIdsArr;
+	private boolean isButtonsNeeded;
 	
 	private int ID_ARRAY_SIZE;
 	
@@ -44,7 +44,10 @@ public class Card_gallery extends Fragment {
 		if(picIds != null){
 			inpModifier = picIds.getString("Modifier");
 			inpIdsArr = picIds.getStringArrayList("Ids");
+			isButtonsNeeded = picIds.getBoolean("isBNeeded",false);
 			ID_ARRAY_SIZE = inpIdsArr.size();
+			
+			Toast.makeText(getActivity(), "size " + isButtonsNeeded, Toast.LENGTH_LONG).show();
 			
 			fillList();
 			refreshDisplay(true);
@@ -97,9 +100,8 @@ public class Card_gallery extends Fragment {
 		}
 		else
 			cardShowdRL.addView(visibleImg.get(1));
-		
-		addButton();
-		//Toast.makeText(getActivity(), "size " + visibleImg.size(), Toast.LENGTH_LONG).show();
+		if(isButtonsNeeded)
+			addButton();
 	}
 
 	
@@ -128,7 +130,14 @@ public class Card_gallery extends Fragment {
 	
 	private void addButton(){
 		Button tmpBtn =  new Button(getActivity());
-		tmpBtn.setText("Press it!");
+		switch(inpModifier){
+			case("building_"):
+				tmpBtn.setText(getResources().getString(R.string.btnBuild));
+				break;
+			case("role_"):
+				tmpBtn.setText(getResources().getString(R.string.btnRoleChoose));
+				break;
+		}
 		
 		RelativeLayout.LayoutParams btnParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 		btnParams.topMargin = visibleImg.get(0).getDrawable().getIntrinsicHeight()-100;

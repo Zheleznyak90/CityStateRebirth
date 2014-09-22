@@ -164,6 +164,7 @@ public class Player_turn_constracting extends Activity implements CardShowing{
 	    Bundle picIds = new Bundle();
 	    picIds.putString("Modifier", "building_");
 	    picIds.putStringArrayList("Ids", Game_func.getSingleGF().createImgArr(_buildDeck));
+	    picIds.putBoolean("isBNeeded", true);
 	    roleShow.setArguments(picIds);
 			
 	    fTrans.add(linL.getId(), roleShow);

@@ -21,6 +21,9 @@
     <string name="btnSpecial">Спец. возможность</string>
     <string name="btnOtherPlayers">Другие игроки</string>
 	<string name="btnTurnEnd">Конец хода</string>
+	
+	<string name="btnBuild">Построить</string>
+	<string name="btnRoleChoose">Выбрать</string>
     
     <string name="tmp">Заглушка</string>
     

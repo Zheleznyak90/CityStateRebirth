@@ -76,6 +76,7 @@ public class Role_choosing extends Activity implements CardShowing{
 	      Bundle picIds = new Bundle();
 	      picIds.putString("Modifier", "role_");
 	      picIds.putStringArrayList("Ids", Game_func.getSingleGF().createImgArr(gameRoleDeckTurn));
+	      picIds.putBoolean("isBNeeded", true);
 	      roleShow.setArguments(picIds);
 			
 	      fTrans.add(linL.getId(), roleShow);
