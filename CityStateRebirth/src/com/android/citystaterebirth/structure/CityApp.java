@@ -21,8 +21,11 @@ public class CityApp extends Application {
 	
 	private int currPlayerNumber = 0;
 	
-	private final int DEFAULT_MAX_BUILDING = 4;
+	private final int DEFAULT_MAX_BUILDING = 2;
 	private int maxBuilding = DEFAULT_MAX_BUILDING;
+	
+	private static int FIRST_FINISHED_EXTRA_POINTS = 4;
+	private static int NOT_FIRST_FINISHED_EXTRA_POINTS = 2;
 
 	
 	public void setGlobalVar(ArrayList<Building> _gameBuildingDeck, ArrayList<Role> _gameRoleDeck, ArrayList<Player> _players){
@@ -103,10 +106,8 @@ public class CityApp extends Application {
 			pl.refreshAtNewTurn();
 		}
 		
-		Game_func gameFunction = new Game_func();
-		  
 		Collections.sort(players, new PlayerCompareId());
-		int crownedPlayerId = gameFunction.getCrownedPlayer(players);
+		int crownedPlayerId = Game_func.getSingleGF().getCrownedPlayer(players);
 		  
 		ArrayList<Player> tmpPlayersList = new ArrayList<Player>(players.size());
 		for(int i = 0; i<players.size();i++){
@@ -118,6 +119,21 @@ public class CityApp extends Application {
 		players = tmpPlayersList;
 		
 		currPlayerNumber = 0;
+	}
+	
+	public void currPlayerBuild(int _constrIndex){
+		Player currPlayer = getCurrPlayer();
+		currPlayer.build(_constrIndex);
+		
+		boolean isLastTurnLocal = currPlayer.getBuilded().size() >= maxBuilding;
+		
+		if(isLastTurn == false && isLastTurnLocal){
+			currPlayer.addExtraPoints(FIRST_FINISHED_EXTRA_POINTS);
+			isLastTurn = true;
+		}
+		else if( isLastTurn && isLastTurnLocal)
+			currPlayer.addExtraPoints(NOT_FIRST_FINISHED_EXTRA_POINTS);
+
 	}
 	
 }

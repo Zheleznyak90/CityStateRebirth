@@ -58,8 +58,8 @@ public class Player_turn_action_choosing extends Activity {
 				switch (v.getId()) {
 				case R.id.btn_cards:
 					currPlayer.pickTwoCards(gameBuildingDeck);
-					((CityApp)getApplication()).modifyCurrentPlayer(currPlayer);
-					((CityApp)getApplication()).setBuildingDeck(gameBuildingDeck);
+					//((CityApp)getApplication()).modifyCurrentPlayer(currPlayer);
+					//((CityApp)getApplication()).setBuildingDeck(gameBuildingDeck);
 					startActivity(next_intent);
 					finish();
 					
@@ -67,7 +67,7 @@ public class Player_turn_action_choosing extends Activity {
 
 				case R.id.btn_gold:
 					currPlayer.pickTwoCoins();
-					((CityApp)getApplication()).modifyCurrentPlayer(currPlayer);
+					//((CityApp)getApplication()).modifyCurrentPlayer(currPlayer);
 					startActivity(next_intent);
 					finish();
 			    		

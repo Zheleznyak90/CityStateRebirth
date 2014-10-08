@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.android.citystaterebirth.R;
 import com.android.citystaterebirth.activities.gameCircle.Player_turn_constracting;
@@ -47,8 +46,7 @@ public class Card_gallery extends Fragment {
 			isButtonsNeeded = picIds.getBoolean("isBNeeded",false);
 			ID_ARRAY_SIZE = inpIdsArr.size();
 			
-			Toast.makeText(getActivity(), "size " + isButtonsNeeded, Toast.LENGTH_LONG).show();
-			
+			//Toast.makeText(getActivity(), "size " + isButtonsNeeded, Toast.LENGTH_LONG).show();
 			fillList();
 			refreshDisplay(true);
 		}
@@ -57,13 +55,13 @@ public class Card_gallery extends Fragment {
             public void onSwipeRight() {//Движение слева направо - прокрутка списка назад
             	if(currElem>=1){
             		swipeRightDisplay(currElem);
-            		currElem--;
+            		//currElem--;
             	}
             }
             public void onSwipeLeft() {
             	if(currElem<=ID_ARRAY_SIZE){//Движение справа налево - прокрутка списка вперед
             		swipeLeftDisplay(currElem);
-            		currElem++;
+            		//currElem++;
             	}
             }
 		});
@@ -80,7 +78,7 @@ public class Card_gallery extends Fragment {
 		
 		tmpDraw = getResources().getDrawable(drawableRes);
 		tempImage.setImageDrawable(tmpDraw);
-
+		
 		return tempImage;
 	}
 	
@@ -93,18 +91,6 @@ public class Card_gallery extends Fragment {
 		}
 	}
 	
-	private void refreshDisplay(boolean _rs){//перезагрузка отображения фрагмента - береться второй элимент в кеше
-		cardShowdRL.removeAllViews();
-		if(currElem<=1 && _rs){
-			cardShowdRL.addView(visibleImg.get(0));
-		}
-		else
-			cardShowdRL.addView(visibleImg.get(1));
-		if(isButtonsNeeded)
-			addButton();
-	}
-
-	
 	//Работа с кэшем при продвижении по списку
 	private void swipeRightDisplay(int _centerElem){
 		if(currElem>1){
@@ -113,6 +99,7 @@ public class Card_gallery extends Fragment {
 		if(currElem!=ID_ARRAY_SIZE-1){
 			visibleImg.removeLast();
 		}
+		currElem--;
 		refreshDisplay(true);
 	}
 	
@@ -125,7 +112,19 @@ public class Card_gallery extends Fragment {
 			if(currElem!=0)
 				visibleImg.removeFirst();
 		}
+		currElem++;
 		refreshDisplay(false);
+	}
+	
+	private void refreshDisplay(boolean _rs){
+		cardShowdRL.removeAllViews();
+		if(currElem<=0 && _rs){
+			cardShowdRL.addView(visibleImg.get(0));
+		}
+		else
+			cardShowdRL.addView(visibleImg.get(1));
+		if(isButtonsNeeded && !inpIdsArr.get(currElem).contains("_bw"))
+			addButton();
 	}
 	
 	private void addButton(){
@@ -141,7 +140,7 @@ public class Card_gallery extends Fragment {
 		
 		RelativeLayout.LayoutParams btnParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 		btnParams.topMargin = visibleImg.get(0).getDrawable().getIntrinsicHeight()-100;
-		btnParams.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+		btnParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		tmpBtn.setLayoutParams(btnParams);
 		
 		tmpBtn.setOnClickListener(new OnClickListener() {//Возвращает номер выбранного элемента в отношении к списку

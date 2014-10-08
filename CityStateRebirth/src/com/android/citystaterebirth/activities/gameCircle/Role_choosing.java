@@ -90,8 +90,7 @@ public class Role_choosing extends Activity implements CardShowing{
 		
 		players.get(iterator_role_choose-1).setRole(gameRoleDeckTurn.get(_elementId));
 		gameRoleDeckTurn.remove(_elementId);
-		((CityApp)getApplication()).setPlayers(players);
-
+		
 		if(iterator_role_choose<players.size()){
 			nextIntent = new Intent(this, Role_choosing.class);
 			nextIntent.putExtra("gameRoleDeckTurn", gameRoleDeckTurn);

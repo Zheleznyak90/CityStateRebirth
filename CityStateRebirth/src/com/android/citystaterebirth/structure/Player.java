@@ -27,8 +27,8 @@ public class Player implements Parcelable{
 	
 	//Game_func gameFunction;
 	//private int maxBuilding = 2;
-	private static int FIRST_FINISHED_EXTRA_POINTS = 4;
-	private static int NOT_FIRST_FINISHED_EXTRA_POINTS = 2;
+	//private static int FIRST_FINISHED_EXTRA_POINTS = 4;
+	//private static int NOT_FIRST_FINISHED_EXTRA_POINTS = 2;
 		
 	public Player(int _id, String _pName, ArrayList<Building> _buildingDeck, int _isC){
 		playerId = _id;
@@ -45,6 +45,10 @@ public class Player implements Parcelable{
 	
 	public void setRole(Role _ChoicedRole){
 		turnRole = _ChoicedRole;
+	}
+	
+	public void addExtraPoints(int _points){
+		points += _points;
 	}
 	
 	public void pickTwoCards(ArrayList<Building> _buildingDeck){
@@ -101,27 +105,18 @@ public class Player implements Parcelable{
 					coinsNumber++;
 			}
 	}
-	/*
-	public boolean build(Building building, Context context){
-		Application app = (CityApp)((Activity) context).getApplication();
-		
-		points += building.getCost();
-		coinsNumber -= building.getCost();
-		builded.add(building);
-		inHandBuildings.remove(building);
+	
+	public boolean build(int _buildingIndex){
+		Building constr = inHandBuildings.get(_buildingIndex);
+		points += constr.getCost();
+		coinsNumber -= constr.getCost();
+		builded.add(constr);
+		inHandBuildings.remove(constr);
 		builtThisTurn++;
-		
-		boolean isLastTurnGlobal = ((CityApp) app).getIsLast();
-		boolean isLastTurnLocal = builded.size() >= ((CityApp) app).getMaxBuilding();
-		if(isLastTurnGlobal == false && isLastTurnLocal == true){
-			points += FIRST_FINISHED_EXTRA_POINTS;
-			((CityApp) app).setIsLast(isLastTurnLocal);
-		}
-		else if(isLastTurnGlobal == true && isLastTurnLocal == true)
-			points += NOT_FIRST_FINISHED_EXTRA_POINTS;
-		return isLastTurnLocal;
+
+		return false;
 	}
-	*/
+
 	public boolean isAlreadyBuilded(Building _building){//Да, да я знаю, что build неправильный глагол
 		boolean isBuilded = false;
 		for(Building isBuilt:builded){

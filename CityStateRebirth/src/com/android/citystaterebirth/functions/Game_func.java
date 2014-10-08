@@ -101,9 +101,9 @@ public class Game_func {
 	 }
 	 
 	 
-	 //TODO USEFULL
+	 //TODO USEFULL NOT GRAPHICAL INTERFACE
 	 
-	 public void setViewRoleChoise( final LinearLayout linealL, final ArrayList<Player> players, final ArrayList<Role> gameRoleDeckTurn, final int iterator_role_choose,  final Context context){
+	 /*public void setViewRoleChoise( final LinearLayout linealL, final ArrayList<Player> players, final ArrayList<Role> gameRoleDeckTurn, final int iterator_role_choose,  final Context context){
 		 
 		  LinearLayout.LayoutParams lpMatchContent = new LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		  lpMatchContent.gravity = Gravity.LEFT;
@@ -142,7 +142,7 @@ public class Game_func {
 	    		  }
 	    	  });
 	      }
-	 }
+	 }*/
 
 	 /*
 	 public void setBuldingScreen( final LinearLayout buildedL, final LinearLayout inHandL, final ArrayList<Player> players,final int builded , final int iterator_turn, final Context context){
@@ -214,12 +214,25 @@ public class Game_func {
 	public <T> ArrayList<String> createImgArr(ArrayList<T> _inpObjArr) {
 		ArrayList<String> imgArr = new ArrayList<String>();
 		
-		for(Object iterRole:_inpObjArr){
-			if(iterRole instanceof Role)
-				imgArr.add(Integer.toString(((Role) iterRole).getId()));
-			else if(iterRole instanceof Building)
-				imgArr.add(((Building) iterRole).getId());
+		for(Object iterObj:_inpObjArr){
+			if(iterObj instanceof Role)
+				imgArr.add(Integer.toString(((Role) iterObj).getId()));
+			else if(iterObj instanceof Building){
+				imgArr.add(((Building) iterObj).getId());
+			}
 		}
+		return imgArr;
+	}
+	
+	public ArrayList<String> createBuildArr(Player _Player){
+		ArrayList<String> imgArr = new ArrayList<String>();
+		for(Building currBuilding:_Player.getBuildingCards()){
+			String currString;
+			currString = currBuilding.getId();
+			if(currBuilding.getCost()>_Player.getGoldAmount() || !_Player.isBuildAvailible() || _Player.isAlreadyBuilded(currBuilding))//TODO сделать цветным для списка постоенных
+				currString += "_bw";
+			imgArr.add(currString);
+			}
 		return imgArr;
 	}
 

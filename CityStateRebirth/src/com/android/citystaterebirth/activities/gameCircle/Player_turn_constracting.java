@@ -13,7 +13,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.citystaterebirth.R;
 import com.android.citystaterebirth.activities.support.Card_gallery;
@@ -33,13 +35,16 @@ public class Player_turn_constracting extends Activity implements CardShowing{
 	private Button nextTurnBtn;
 	private Button plans;
 	private Button alreadyBuilt;
-	private Button roleSpecial;
+	//private Button roleSpecial;
 	
 	private ArrayList<Player> players;
 	private boolean isLastTurn;
 	private int iterator_turn;//TODO refactor to isLast in players coll
 	//Role_special special;
 	private Player currPlayer;
+	
+	private RelativeLayout fragmentRelL;
+	private RelativeLayout rootRL;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +66,7 @@ public class Player_turn_constracting extends Activity implements CardShowing{
 		nextTurnBtn = (Button) findViewById(R.id.btn_end_turn);
 		plans = (Button) findViewById(R.id.btn_plans);
 		alreadyBuilt = (Button) findViewById(R.id.btn_already_built);
-		roleSpecial = (Button) findViewById(R.id.btn_special);
+		//roleSpecial = (Button) findViewById(R.id.btn_special);
 		
 	    //special = new Role_special(currPlayer, roleSpecial);
 	    //Thread specialThread = new Thread(special);
@@ -87,14 +92,16 @@ public class Player_turn_constracting extends Activity implements CardShowing{
 						break;
 						
 					case R.id.btn_already_built:
-						cardShowFragmentAdd(currPlayer.getBuilded());
+						if(currPlayer.getBuilded().size() > 0){
+							cardShowFragmentAdd(currPlayer.getBuilded(), 2);
+						}
 						/*next_intent = next_intent_plans;
 						next_intent.putExtra("isBuidedList", true);
 						startActivity(next_intent);
 						*/
 						break;	
 					case R.id.btn_plans:
-						cardShowFragmentAdd(currPlayer.getBuildingCards());
+						cardShowFragmentAdd(currPlayer.getBuildingCards(), 1);
 						/*
 						next_intent = next_intent_plans;
 						startActivity(next_intent);
@@ -146,35 +153,51 @@ public class Player_turn_constracting extends Activity implements CardShowing{
 	
 	@Override
 	protected void onResume() {
+		//Toast.makeText(this, "CALLL", Toast.LENGTH_LONG).show();
 		cointsTV.setText(String.valueOf(((CityApp)getApplication()).getCurrPlayer().getGoldAmount()));
 
 		super.onResume();
 	}
 	
-	private void cardShowFragmentAdd(ArrayList<Building> _buildDeck){
-		LinearLayout linL = new LinearLayout(this);
-		linL.setOrientation(LinearLayout.VERTICAL);
-		LayoutParams linLParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
-		setContentView(linL,linLParams);
-		linL.setId(2121212121);
+	private void cardShowFragmentAdd(ArrayList<Building> _buildDeck, int _galId){//_galId = opened gallery id - 1 = plans, 2 = alreadyBuilt
+		fragmentRelL = new RelativeLayout(this);
+		//relL.setRotation(RelativeLayout.CENTER_VERTICAL);
+		RelativeLayout.LayoutParams relLParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+		relLParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+		fragmentRelL.setLayoutParams(relLParams);
+		fragmentRelL.setId(2121212123);
+		//fragmentRelL.setBackgroundColor(80000000);
+		rootRL = (RelativeLayout) findViewById(R.id.rl_constr_root);
+		rootRL.addView(fragmentRelL);
 		
 	    Fragment roleShow = new Card_gallery();
 	    FragmentTransaction fTrans = getFragmentManager().beginTransaction();
 			
 	    Bundle picIds = new Bundle();
 	    picIds.putString("Modifier", "building_");
-	    picIds.putStringArrayList("Ids", Game_func.getSingleGF().createImgArr(_buildDeck));
-	    picIds.putBoolean("isBNeeded", true);
+	    if(_galId == 1){
+	    	picIds.putStringArrayList("Ids", Game_func.getSingleGF().createBuildArr(currPlayer));
+	    	picIds.putBoolean("isBNeeded", true);
+	    }
+	    else if(_galId == 2){
+	    	picIds.putStringArrayList("Ids", Game_func.getSingleGF().createImgArr(_buildDeck));
+	    	picIds.putBoolean("isBNeeded", false);
+	    }
+	    
 	    roleShow.setArguments(picIds);
 			
-	    fTrans.add(linL.getId(), roleShow);
+	    fTrans.add(fragmentRelL.getId(), roleShow);
 	    fTrans.addToBackStack(null);
-	      fTrans.commit();
+	    fTrans.commit();
 	}
 
 	@Override
 	public void onGalleryClose(int _elementId) {
-		// TODO Auto-generated method stub
+		rootRL.removeView(fragmentRelL);
+		((CityApp)getApplication()).currPlayerBuild(_elementId);
+		//currPlayer.build(_elementId);
+		cointsTV.setText(String.valueOf(((CityApp)getApplication()).getCurrPlayer().getGoldAmount()));
+		//Toast.makeText(this, "size " + _elementId, Toast.LENGTH_LONG).show();
 		
 	}
 	
